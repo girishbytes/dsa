@@ -1,0 +1,32 @@
+class Solution {
+
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
+
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+
+        List<Integer> cur = new ArrayList();
+        sum(nums,target,0,cur,0);
+        return res;    
+    }
+
+
+    private void sum(int[] nums, int target, int currentSum, List<Integer> subArray, int index){
+        if(target == currentSum){
+            res.add(new ArrayList(subArray));
+            return;
+        }
+
+        if(target < currentSum || index >= nums.length){
+            return;
+        }
+
+        subArray.add(nums[index]);
+        currentSum = currentSum + nums[index];
+
+        sum(nums, target, currentSum, subArray, index);
+        subArray.remove(subArray.size()-1);
+
+        currentSum = currentSum - nums[index];
+        sum(nums, target, currentSum, subArray, index+1);
+    }
+}
